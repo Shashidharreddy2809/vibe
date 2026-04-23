@@ -1909,9 +1909,12 @@ const Quiz = forwardRef<QuizRef, QuizProps>(({
               <Input
                 id={`numerical-answer-${currentQuestion.id}`}
                 type="number"
-                step={currentQuestion.decimalPrecision ? `0.${'0'.repeat(currentQuestion.decimalPrecision - 1)}1` : 'any'}
-                value={(answers[currentQuestion.id] as number) || 0}
-                onChange={(e) => handleAnswer(parseFloat(e.target.value) || 0)}
+                step={currentQuestion.decimalPrecision === 0 ? "1" : currentQuestion.decimalPrecision ? `0.${'0'.repeat(currentQuestion.decimalPrecision - 1)}1` : 'any'}
+                value={answers[currentQuestion.id] !== undefined ? (answers[currentQuestion.id] as number) : ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  handleAnswer(val === '' ? undefined : parseFloat(val));
+                }}
                 placeholder="Enter a number"
                 className="text-lg"
               />

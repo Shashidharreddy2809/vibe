@@ -1434,7 +1434,36 @@ export class ItemService extends BaseService {
               correctOptionIndex >= 0 &&
               correctOptionIndex < options.length
             ) {
-              const questionBody = {
+            const optionsAreIntegers = options.every(opt => {
+              const trimmed = opt.text.trim().replace(/^\$|\$$/g, '');
+              return trimmed !== '' && !isNaN(Number(trimmed)) && Number.isInteger(Number(trimmed));
+            });
+
+            let questionBody: any;
+
+            if (optionsAreIntegers && options.length > 0) {
+              const correctValue = Number(options[correctOptionIndex].text.trim().replace(/^\$|\$$/g, ''));
+              questionBody = {
+                question: {
+                  text: question.Question || '',
+                  type: 'NUMERIC_ANSWER_TYPE' as QuestionType,
+                  isParameterized: false,
+                  parameters: [],
+                  timeLimitSeconds: 60,
+                  points: 5,
+                  priority: 'MEDIUM' as Priority,
+                  hint: question.Hint || '',
+                },
+                solution: {
+                  value: correctValue,
+                  expression: correctValue.toString(),
+                  decimalPrecision: 0,
+                  upperLimit: 0,
+                  lowerLimit: 0,
+                },
+              };
+            } else {
+              questionBody = {
                 question: {
                   text: question.Question || '',
                   type: 'SELECT_ONE_IN_LOT' as QuestionType,
@@ -1461,6 +1490,7 @@ export class ItemService extends BaseService {
                     })),
                 },
               };
+            }
               const question2 = QuestionFactory.createQuestion(
                 questionBody,
                 userId,

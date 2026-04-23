@@ -856,7 +856,7 @@ export default function AuthPage({ role }: AuthPageProps) {
                               formErrors.password && "border-destructive focus-visible:ring-destructive"
                             )}
                           />
-                          <Button 
+                           <Button 
                             variant="ghost" 
                             size="icon" 
                             aria-label=""
@@ -864,7 +864,7 @@ export default function AuthPage({ role }: AuthPageProps) {
                             onClick={() => setShowPassword(p => !p)}
                             type="button"
                           >
-                            {showPassword ? <EyeOff /> : <Eye  />}
+                             {showPassword ? <EyeOff /> : <Eye  />}
                           </Button>
                         </div>
                         {password && (
@@ -944,7 +944,7 @@ export default function AuthPage({ role }: AuthPageProps) {
                               !passwordsMatch && confirmPassword && "border-destructive focus-visible:ring-destructive"
                             )}
                           />
-                          <Button 
+                           <Button 
                             variant="ghost" 
                             size="icon" 
                             aria-label="Toggle confirm password visibility"
@@ -952,7 +952,7 @@ export default function AuthPage({ role }: AuthPageProps) {
                             onClick={() => setShowConfirmPassword(p => !p)}
                             type="button"
                           >
-                            {showConfirmPassword ? <EyeOff /> : <Eye />}
+                            {showConfirmPassword ? <EyeOff  /> : <Eye  />}
                           </Button>
                         </div>
                         {!passwordsMatch && confirmPassword && (
